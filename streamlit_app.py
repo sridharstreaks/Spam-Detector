@@ -5,18 +5,18 @@ import nltk
 
 
 # Text Transformer
-def transform(string):
+def transform(string_input):
     #lowering case 
-    string=string.lower()
+    string_input=string_input.lower()
     
     # splitting by words
-    string=nltk.word_tokenize(string)
+    string_input=nltk.word_tokenize(string_input)
     
     #remove special characters
     import re
-    string=[re.sub('[^a-zA-Z0-9]+', '', _) for _ in string]
-    while("" in string):
-        string.remove("")
+    string_input=[re.sub('[^a-zA-Z0-9]+', '', _) for _ in string_input]
+    while("" in string_input):
+        string_input.remove("")
     
     #remove stopwords and stemming
     from nltk.corpus import stopwords
@@ -24,19 +24,19 @@ def transform(string):
     ps = PorterStemmer()
     stop_words = set(stopwords.words('english'))
     temp=[]
-    for i in string:
+    for i in string_input:
         if i not in stop_words:
             # Stemming
             stemmed=ps.stem(i)
             temp.append(stemmed)
             
-    string = temp[:]
+    string_input = temp[:]
     temp.clear()
             
-    #getting s single string
-    string=' '.join(string)
+    #getting s single string_input
+    string_input=' '.join(string_input)
     
-    return string
+    return string_input
 
 tfidf = pickle.load(open('vectorizer.pkl','rb'))
 model = pickle.load(open('model_bnb.pkl','rb'))
